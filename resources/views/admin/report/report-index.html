@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Admin - báo cáo - tổng quát</title>
+
+    <!-- CSS -->
+        <!-- Bootstrap -->	            <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+        <!-- Collapmenu style -->	    <link rel="stylesheet" href="css/collapsemenu-styles.css" type="text/css" />
+        <!-- Style -->                  <link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+<body>
+    <div class="hero-unit">
+        <div class="container">
+            <div class="navbar">  
+                <div class="navbar-inner">
+                    <div class="col-lg-3">
+                        <a class="logo" href="#"></a>      
+                    </div>
+                    <div class="col-lg-9 user-menu" >       
+                            <div class="dropdown userinfo">
+                                Admin S: 
+                                <button class="btn btn-default dropdown-toggle btn-userinfo" data-toggle="dropdown" type="button" id="userdropdownmenu" aria-haspopup="true" aria-expanded="true">
+                                    Benfriends
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="userdropdownmenu">
+                                    <li><a href="#">Thông tin tài khoản</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Đăng xuất</a></li>
+                                </ul>  
+                            </div><!-- END dropdown -->    
+                    </div>              
+                </div>            
+            </div><!-- END navbar -->
+        </div>    
+    </div><!-- END hero-unit -->
+
+    <div class="container main-unit">
+        <div class="row">
+                <div id="cssmenu" class="col-lg-3 menucontainer bmenu">    
+                    <ul class="nav">
+                            <li class='has-sub'><a href='#'><span><i class="demo-icon icon-trash-1">&#xe807;</i>Người dùng</span></a>
+                                <ul>
+                                    <li><a href='#'><span>Danh sách</span></a></li>
+                                    <li class='last'><a href='#'><span>Thêm mới</span></a></li>
+                                </ul>
+                            </li>
+                            <li class='has-sub'><a href='#'><span><i class="demo-icon icon-trash-1">&#xe808;</i>Loại sản phẩm</span></a>
+                                <ul>
+                                    <li><a href='#'><span>Danh sách</span></a></li>
+                                    <li class='last'><a href='#'><span>Thêm mới</span></a></li>
+                                </ul>
+                            </li>
+                            <li class='has-sub'><a href='#'><span><i class="demo-icon icon-trash-1">&#xe809;</i>Sản phẩm</span></a>
+                                <ul>
+                                    <li><a href='#'><span>Danh sách</span></a></li>
+                                    <li class='last'><a href='#'><span>Thêm mới</span></a></li>
+                                </ul>
+                            </li>
+                            <li class='has-sub'><a href='#'><span><i class="demo-icon icon-trash-1">&#xe803;</i>Quản lý</span></a>
+                                <ul>
+                                    <li><a href='#'><span>Phân quyền</span></a></li>
+                                    <li><a href='#'><span>Đơn hàng</span></a></li>
+                                    <li class='last'><a href='#'><span>Kho hàng</span></a></li>
+                                </ul>
+                            </li>
+                            <li class='has-sub'><a href='#'><span><i class="demo-icon icon-trash-1">&#xe806;</i>Báo cáo</span></a>
+                                <ul>
+                                    <li><a href='#'><span>Tổng quát</span></a></li>
+                                    <li><a href='#'><span>Doanh thu</span></a></li>
+                                    <li class='last'><a href='#'><span>Kho hàng</span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                </div><!-- END bmenu -->
+                
+                <!-- content -->
+            <div class="col-lg-9 content" style="height:auto;">
+                <div class="col-lg-12 page-header">
+                    <h2>Báo cáo <small>Tổng quát</small></h2>
+                </div><!-- END page-header -->
+                <div class="col-lg-4 rp-section">
+                    <div class="col-lg-12 rp-section-inner">
+                        <div class="col-lg-12 rp-sc-top">
+                            <span>Doanh thu</span>
+                        </div>
+                        <div class="col-lg-12 rp-sc-mid rp-sc-mid-income">
+                            <span class="total">100.000.000.000 VND</span></br>
+                            <span class="lb-total">Tổng doanh thu</span>
+                        </div>
+                        <div class="col-lg-12 rp-sc-bot">
+                            <span class="bot-total">200.000 VND</span></br>
+                            <span class="bot-lb-total">Giá trị đơn hàng mới nhất</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 rp-section">
+                    <div class="col-lg-12 rp-section-inner">
+                        <div class="col-lg-12 rp-sc-top">
+                            <span>Người dùng</span>
+                        </div>
+                        <div class="col-lg-12 rp-sc-mid rp-sc-mid-user">
+                            <span class="total">3000</span></br>
+                            <span class="lb-total">Tổng số khách hàng</span>
+                        </div>
+                        <div class="col-lg-12 rp-sc-bot">
+                            <span class="bot-total">500</span></br>
+                            <span class="bot-lb-total">Tổng số đơn hàng</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 rp-section">
+                    <div class="col-lg-12 rp-section-inner rp-section-inner-payment">
+                        <div class="col-lg-12 rp-sc-top">
+                            <span>Thanh toán</span>
+                        </div>
+                        <div class="col-lg-12 rp-sc-big">
+                            <span class="total">70.000.000.000 VND</span></br>
+                            <span class="lb-total">Tiền mặt</span>
+                        </div>
+                        <div class="col-lg-12 rp-sc-bot">
+                            <span class="bot-total">30.000.000.000 VND</span></br>
+                            <span class="bot-lb-total">chuyển khoản</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 rp-section">
+                    <div class="col-lg-12 rp-section-inner2">
+                        <span class="chart-header">Danh sách sản phẩm bán chạy</span><br/>
+                        <div class="col-lg-12 rp-product-group">
+                            <span class="rp-product-name">Sản phẩm 1</span>
+                            <span class="rp-product-quantity">4000 SP</span>
+                        </div>
+                        <div class="col-lg-12 rp-product-group">
+                            <span class="rp-product-name">Sản phẩm 2</span>
+                            <span class="rp-product-quantity">3890 SP</span>
+                        </div>
+                        <div class="col-lg-12 rp-product-group">
+                            <span class="rp-product-name">Sản phẩm 3</span>
+                            <span class="rp-product-quantity">3888 SP</span>
+                        </div>
+                        <div class="col-lg-12 rp-product-group">
+                            <span class="rp-product-name">Sản phẩm 4</span>
+                            <span class="rp-product-quantity">3500 SP</span>
+                        </div>
+                        <div class="col-lg-12 rp-product-group">
+                            <span class="rp-product-name">Sản phẩm 5</span>
+                            <span class="rp-product-quantity">3244 SP</span>
+                        </div>
+                        <div class="col-lg-12 rp-product-group">
+                            <span class="rp-product-name">Sản phẩm 6</span>
+                            <span class="rp-product-quantity">3009 SP</span>
+                        </div>
+                        <div class="col-lg-12 rp-product-group">
+                            <span class="rp-product-name">Sản phẩm 7</span>
+                            <span class="rp-product-quantity">2800 SP</span>
+                        </div>
+                        <div class="col-lg-12 rp-product-group">
+                            <span class="rp-product-name">Sản phẩm 8</span>
+                            <span class="rp-product-quantity">3244 SP</span>
+                        </div>
+                        <div class="col-lg-12 rp-product-group">
+                            <span class="rp-product-name">Sản phẩm 9</span>
+                            <span class="rp-product-quantity">3009 SP</span>
+                        </div>
+                        <div class="col-lg-12 rp-product-group">
+                            <span class="rp-product-name">Sản phẩm 10</span>
+                            <span class="rp-product-quantity">2800 SP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 rp-section">
+                    <div class="col-lg-12 rp-section-inner2">
+                        <span class=" col-lg-12 chart-header">Biểu đồ loại sản phẩm bán chạy</span>
+                        <div class="col-lg-5">
+                            <canvas id="myChart" width="100%"></canvas>    
+                        </div>
+                        <div class="col-lg-7" style="padding-top: 40px;">
+                            <div class="col-lg-12 rp-product-group">
+                                <span class="rp-product-name">Loại sản phẩm 1</span>
+                                <span class="rp-product-quantity">25 %</span>
+                            </div>
+                            <div class="col-lg-12 rp-product-group">
+                                <span class="rp-product-name">Loại sản phẩm 2</span>
+                                <span class="rp-product-quantity">22 %</span>
+                            </div>
+                            <div class="col-lg-12 rp-product-group">
+                                <span class="rp-product-name">Loại sản phẩm 3</span>
+                                <span class="rp-product-quantity">20 %</span>
+                            </div>
+                            <div class="col-lg-12 rp-product-group">
+                                <span class="rp-product-name">Loại sản phẩm 4</span>
+                                <span class="rp-product-quantity">18 %</span>
+                            </div>
+                            <div class="col-lg-12 rp-product-group">
+                                <span class="rp-product-name">Loại sản phẩm khác</span>
+                                <span class="rp-product-quantity">15 %</span>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div><!-- END content -->
+        </div>
+    </div><!-- END main-unit -->            
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <small>&copy;<a href="#">Benfriends</a>2016</small>  
+                </div>
+            </div>
+        </div> 
+    </footer>
+    <!-- Jquery     -->           <script src="js/jquery.min.js" type="text/javascript"></script> 
+    <!-- Bootstrap  -->           <script src="js/bootstrap.min.js" type="text/javascript"></script> 
+    <!-- Collapmenu  -->          <script src="js/collapsemenu_script.js" type="text/javascript"></script>
+    <!-- Chart  -->               <script src="js/Chart.js" type="text/javascript"></script>
+    <!-- My script -->	          <script src="script.js" type="text/javascript"></script>   
+    <script type="text/javascript">
+        
+        var data = [
+            {
+                value: 25,
+                color:"#F7464A",
+                highlight: "#FF5A5E",
+                label: "Loại sản phẩm 1"
+            },
+            {
+                value: 22,
+                color: "#46BFBD",
+                highlight: "#5AD3D1",
+                label: "Loại sản phẩm 2"
+            },
+            {
+                value: 20,
+                color: "#FDB45C",
+                highlight: "#FFC870",
+                label: "Loại sản phẩm 3"
+            },
+            {
+                value: 18,
+                color: "#ed7c38",
+                highlight: "#ed8d54",
+                label: "Loại sản phẩm 4"
+            },
+            {
+                value: 15,
+                color: "#4aed69",
+                highlight: "#61ee7c",
+                label: "Loại sản phẩm khác"
+            }
+        ]
+        
+        $(document).ready(function(){
+            $('#cssmenu > ul > li.active > a').trigger('click');
+            
+            var ctx = document.getElementById("myChart").getContext("2d");
+				window.myDoughnut = new Chart(ctx).Doughnut(data, {responsive : true});
+        });
+    </script>
+</body>  
+</html>
