@@ -7,7 +7,7 @@
     <!-- CSS -->
     <!-- Bootstrap -->	        <link rel="stylesheet" href="{{ url('public/admin/css/bootstrap.min.css') }}" type="text/css" />
     <!-- Collapmenu style -->	<link rel="stylesheet" href="{{ url('public/admin/css/collapsemenu-styles.css') }}" type="text/css" />
-    @yield('css-fw')
+    @stack('head-fw')
     <!-- Style -->              <link rel="stylesheet" href="{{ url('public/admin/styles.css') }}" type="text/css" />
 </head>
 <body>
@@ -17,7 +17,7 @@
                     <div class="col-lg-3" style="padding-bottom: 10px;">
                         <a class="logo" href="#"></a>      
                     </div>
-                    <div class="col-lg-9">
+                    <div class="col-lg-9" style="padding-right: 50px;">
                         <div class="pull-right">       
                             <div class="dropdown userinfo">
                                 Admin S: 
@@ -42,15 +42,13 @@
         </div>    
     </div><!-- END main-unit -->             
     @include('admin.blocks.footer')
-
     <!-- Javascript -->
     <!-- Jquery     -->           <script src="{{ url('public/admin/js/jquery.min.js') }}" type="text/javascript"></script> 
     <!-- Bootstrap  -->           <script src="{{ url('public/admin/js/bootstrap.min.js') }}" type="text/javascript"></script> 
     <!-- Collapmenu  -->          <script src="{{ url('public/admin/js/collapsemenu_script.js') }}" type="text/javascript"></script>
-    @yield('javascript-fw')
-    <!-- My script -->	          <script src="{{ url('public/admin/script.js') }}" type="text/javascript"></script>   
-    <script type="text/javascript">
-        @yield('script')
-    </script>
+    <!-- My script -->            <script src="{{ url('public/admin/script.js') }}" type="text/javascript"></script>   
+    @stack('foot-fw')
+
+    @stack('scripts')
 </body>  
 </html>

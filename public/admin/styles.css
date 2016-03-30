@@ -39,10 +39,11 @@ body{
 }
 
 .navbar-inner{
-    padding-left: 0px;
+    padding-left: 20px;
     padding-right: 0px;
     min-height: 70px;
     padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .navbar .logo{
@@ -70,7 +71,7 @@ body{
 }
 
 .content{
-    min-height: 708px;
+    min-height: 83vh;
     overflow-y: inherit;
     background-color: #FFFFFF;
     border-bottom: 3px solid #1d2939;
@@ -80,9 +81,9 @@ body{
 }
 
 .page-header{
-    margin-top: 10px;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #909090;
+  font-size: 16pt;
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 
 /** end main **/
@@ -92,12 +93,31 @@ body{
     padding-bottom: 100px;
 }
 
-.product-imgs{
-    padding-left: 0px;
-}
-
 .datetext{
     width: 100px;
+}
+
+.text-error{
+  color: #d9534f;
+}
+/*** profile image ***/
+.profile-image-frame{
+  width: 180px;
+  height: 200px;
+}
+
+.profile-image-slide{
+
+}
+
+.profile-image-label{
+  font-size: 14pt;
+}
+
+.profile-image-icon{
+  font-size: 20pt;
+  display: block;
+  margin: 0px;
 }
 
 .form-group .inputfile {
@@ -158,6 +178,7 @@ body{
 .inputfile-3 + label:hover {
     color: #132d52;
 }
+/*** end profile image ***/
 
 .user-info{
     border: 2px solid #1d2939;
@@ -180,23 +201,33 @@ body{
 
 /** datatable **/
 
+.bs-example-modal-sm{
+  top:15%;
+  outline: none;
+}
+
+.modal-danger-icon{
+  display: block;
+  height: 32px;
+  width: 32px;
+  text-indent: -9999px;
+  background: url(img/1458766200_Warning.png) no-repeat;
+}
+
+.modal-title{
+  line-height: 32px;
+  padding-left: 5px;
+  font-weight: bold;
+}
+
+.toolbar, #datatable_filter{
+  padding: 10px;
+}
+
 .table-bordered>thead>tr>td{
     font-size: 12pt;
     font-weight: bold;
-    background-color: #749fd7;
-    
-}
-
-.table-bordered>thead>tr>td.colxoa:after,
-.table-bordered>thead>tr>td.colsua:after{
-    visibility: hidden;
-}
-
-.table-bordered>thead>tr>td.colxoa,
-.table-bordered>thead>tr>td.colsua,
-.table-bordered>tbody>tr>td.colxoa,
-.table-bordered>tbody>tr>td.colsua{
-    text-align: center;
+    background-color: #70cdf4;   
 }
 
 .table-bordered>tbody>tr>td{
@@ -204,34 +235,24 @@ body{
 }
 
 .table-bordered>tbody>tr:hover{
-    background-color: #afdef3;
+    background-color: #eeeeee;
 }
 
-.table-bordered>tbody>tr>td.colxoa a,
-.table-bordered>tbody>tr>td.colsua a{
-    text-decoration: none;
-    color: #333333;
-    border-top: 1px solid #666666;
-    border-bottom: 1px solid rgba(99,99,99,0.8);
-    border-radius: 3px; 
-    -webkit-border-radius: 3px; 
-    -moz-border-radius: 3px; 
-    
-    background: linear-gradient(#999999 70%, #666666);
-    background: -0-linear-gradient(#999999 70%, #666666);
-    background: -webkit-linear-gradient(#999999 70%, #666666);
-    background: -moz-linear-gradient(#999999 70%, #666666);
-    
-    box-shadow: 1px 1px 1px #606060;
-    box-sizing: border-box;
-    cursor: pointer;
+.btn-new {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
 }
 
-.table-bordered>tbody>tr>td.colxoa a:hover,
-.table-bordered>tbody>tr>td.colsua a:hover{
-    box-shadow: none;
-    background: #666666;
-    color: #ffffff;
+.btn-new:hover{
+    color: #4cae4c;
+    background-color: #fff;
+    border-color: #5cb85c;
+    border-width: 2px;
+}
+
+.tbl_button{
+  border-radius: 7px;
 }
 
 .demo-icon{
@@ -242,7 +263,7 @@ body{
      
       display: inline-block;
       text-decoration: inherit;
-      width: 2em;
+      width: 2.2em;
       margin-right: .2em;   
       text-align: center;
       /* opacity: .8; */
@@ -252,7 +273,7 @@ body{
       text-transform: none;
      
       /* fix buttons height, for twitter bootstrap */
-      line-height: 1.5em;
+      line-height: 1.8em;
      
       /* Animation center compensation - margins should be symmetric */
       /* remove if not needed */
@@ -269,10 +290,6 @@ body{
       /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.new-btn-wrapper{
-    padding-bottom: 10px;
-    padding-left: 0px;
-}
 /** end table **/
 
 /* report */
@@ -467,6 +484,15 @@ footer{
     .content{
         border-left:3px solid #1d2939; 
     }
+    
+    .table-bordered>thead>tr>td{
+      font-size: 8pt;
+    }
+
+    .table-bordered>tbody>tr>td{
+      font-size: 6pt;
+    }
+
     .rp-product-group{
         margin-bottom: 20px;
     }

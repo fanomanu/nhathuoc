@@ -1,95 +1,114 @@
 @extends('admin.master')
 @section('title')
-Loại sản phẩm - danh sách
+loại sản phẩm - danh sách
 @endsection
 
-@section('css-fw')
+@push('head-fw')
     <!-- Bootstrap Datatable -->    <link rel="stylesheet" href="{{ url('public/admin/css/dataTables.bootstrap.css') }}" type="text/css"/>
-@endsection
+@endpush
 
 @section('content')
     <div class="col-lg-3">
         <div class="menucontainer">
             <div id="cssmenu" class="bmenu">
                 <ul class="nav">
-                    <?php renderMenu($arr_menu) ?>
+                    <?php renderMenu($menu) ?>
                 </ul>    
             </div><!-- END cssmenu -->
         </div><!-- END menucontainer -->
     </div>        
     <!-- content -->
     <div class="col-lg-9 content">
-            <div class="row">
-               <div class="col-lg-12 page-header">
-                   <h2>Loại sản phẩm <small>Danh sách</small></h2>
-               </div><!-- END page-header -->
-            </div>
+            <ol class="breadcrumb page-header">
+                <li class="active">Loại sản phẩm</li>
+                <li class="active">Danh sách</li>
+            </ol>
+            @include('admin.blocks.modal')
             <div class="col-lg-12">
                 @if(Session::has('flash-message'))
                     <div class="alert {!! Session::get('flash-type') !!}">
                         {!! Session::get('flash-message') !!}
                     </div>
                 @endif
-            </div>
-            <table id="datatable" class="table table-striped table-bordered" cellspacing="0">
+            </div><!-- flash-message -->
+            <table id="datatable" class="table table-bordered" cellspacing="0" style="width: 100%">
                    <thead>
                         <tr>
                            <td>ID</td> 
                            <td>Tên loại</td>
                            <td>Sắp xếp</td>
+                           <td>Thuộc loại id</td>
                            <td>Thuộc loại</td>
-                           <td class="colxoa">Xóa</td>
-                           <td class="colsua">Sửa</td>
+                           <td>Chức năng</td>
                         </tr>
                    </thead>
-                   <tbody>
-                        <tr>
-                            <td>1</td> 
-                            <td>Thuốc ho</td>
-                            <td>1</td>
-                            <td>N/A</td>
-                            <td class="colxoa">
-                                <a><i class="demo-icon icon-trash-1">&#xe800;</i></a>
-                            </td>
-                            <td class="colsua">
-                                <a><i class="demo-icon icon-pencil">&#xe801;</i></a>
-                            </td>
-                        </tr>
-                   </tbody><!-- END tbody -->
                </table><!-- END table -->       
     </div><!-- END content -->  
 @endsection
 
-@section('javascript-fw')
+@push('foot-fw')
     <!-- Datatable  -->           <script src="{{ url('public/admin/js/jquery.dataTables.js') }}" type="text/javascript"></script>
     <!-- Bootstrap Datatable  --> <script src="{{ url('public/admin/js/dataTables.bootstrap.js') }}" type="text/javascript"></script>
-@endsection
+@endpush
 
-@section('script')
-    $(document).ready(function(){
+@push('scripts')
+    <script type="text/javascript">
+
+        //Hàm xác nhận xóa
+        function xacnhanxoa(btn){
+            //console.log($('#btn-delete-confirm'));
+            var btn = $(btn);
+            //console.log(btn.attr('link'));
+
+            $('#btn-delete-confirm').attr('href',btn.attr('link'));
+        }
+
+        $(document).ready(function(){
             
+
+
             var table = $('#datatable').DataTable({
-                    "dom": '<"toolbar">tp',
+                    "dom": '<"col-lg-3 toolbar">ftp',
                     "oLanguage": {
                         "sSearch": "Tìm kiếm _INPUT_",
+                        "sEmptyTable": "Chưa có dữ liệu trong bảng <a class='tbl_empty_new_button' href='{!! url('admin/category/add') !!}'>Tạo mới</a>",
+                        "sProcessing ": "Đang xử lý dữ liệu",
                         "oPaginate": {
                             "sNext": "Sau",
                             "sPrevious": "Trước"
                         }
                     },
-                    "columnDefs": [
-                        { "orderable": false, "targets": [1,3,4,5] },
-                        { "searchable": false, "targets": [2,4,5] }
-                    ]
+                    "aoColumnDefs": [
+                        { "sClass": "text-center", "aTargets": [ 5 ] },
+                        { visible: false, "aTargets": [ 3 ] }
+                    ],
+                    "language": {
+                       "processing": "Đang xử lý"
+                    },
+                    "fnInitComplete": function ( oSettings ) {
+                        oSettings.oLanguage.sZeroRecords    = "Không có dữ liệu phù hợp" 
+                    },
+                    responsive: true,
+                    processing: true,
+                    serverSide: true,
+                    ajax: '{!! route('admin.category.data') !!}',
+                    columns: [
+                        { data: 'cate_id', name: 'cate.id'},
+                        { data: 'cate_name', name: 'cate.name',orderable: false },
+                        { data: 'cate_order', name: 'cate.order', searchable: false },
+                        { data: 'parent_id', name: 'pcate.id', orderable: false },
+                        { data: 'parent_name', name: 'pcate.name',orderable: false },
+                        { data: 'action', name: 'action',orderable: false, searchable: false }
+                    ]   
             });
             
             <!-- Đây là đoạn mã quy định số dòng table -->
             table.page.len(50).draw();    
             
             <!-- Đây là đoạn mã vẽ toolbar cho table -->
-            $("div.toolbar").html('<div id="datatable_filter" class="dataTables_filter">'+
-                                    '<div class="pull-left"><a class="btn btn-primary">Thêm mới</a></div>'+
-                                    '<label>Tìm kiếm <input type="search" class="form-control input-sm" placeholder="" aria-controls="datatable">'+
-                                    '</label></div>');
-    });
-@endsection
+            $('#datatable_filter').addClass('col-lg-9');
+            //console.log($('#datatable_filter').html());
+            $('div.toolbar').html('<a href="{!! url('admin/category/add') !!}" class="btn btn-new">Thêm mới</a>');
+        });
+    </script>
+@endpush

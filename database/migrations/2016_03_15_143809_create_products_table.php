@@ -25,8 +25,8 @@ class CreateProductsTable extends Migration
             $table->boolean('clocked');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('cate_id')->unsigned();
-            $table->foreign('cate_id')->references('id')->on('categories');
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

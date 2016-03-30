@@ -3,24 +3,25 @@
 Loại sản phẩm - thêm
 @endsection
 
-@section('css-fw')
-@endsection
+@push('head-fw')
+@endpush
 
 @section('content')
     <div class="col-lg-3">
         <div class="menucontainer">
             <div id="cssmenu" class="bmenu">
                 <ul class="nav">
-                    <?php renderMenu($arr_menu) ?>
+                    <?php renderMenu($menu); ?>
                 </ul>    
             </div><!-- END cssmenu -->
         </div><!-- END menucontainer -->
     </div>
     <!-- content -->
     <div class="col-lg-9 content">
-        <div class="col-lg-12 page-header">
-            <h2>Loại sản phẩm <small>Thêm mới</small></h2>
-        </div><!-- END page-header -->
+        <ol class="breadcrumb page-header">
+                <li><a  href="{!! route('admin.category') !!}">Loại sản phẩm</a></li>
+                <li class="active">Thêm mới</li>
+        </ol>
         @include('admin.blocks.inform')
         <form action="{!! route('admin.category.getAdd') !!}" method="POST">
             <div class="col-lg-7 main-form-wrapper">
@@ -29,24 +30,24 @@ Loại sản phẩm - thêm
                     <label>Thuộc loại</label>
                     <select class="form-control" name="slParent">
                     <option value="0">Xin chọn một loại..</option>
-                    <?php cate_parent($parent); ?>
+                    <?php renderCategoryForSelect($parent,0,'',old('slParent')); ?>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Tên loại</label>
-                    <input class="form-control" name="txtName" placeholder="Xin nhập tên loại" />
+                    <label {!! $errors->first('txtName') != null ? 'class="text-error"' : null !!}>Tên loại</label>
+                    <input class="form-control" name="txtName" placeholder="Xin nhập tên loại" value="{!! old('txtName') !!}"/>
                 </div>
                 <div class="form-group">
-                    <label>Thứ tự sắp xếp</label>
-                    <input class="form-control" name="txtOrder" placeholder="Xin nhập thứ tự sắp xếp" />
+                    <label {!! $errors->first('txtOrder') != null ? 'class="text-error"' : null !!}>Thứ tự sắp xếp</label>
+                    <input class="form-control" name="txtOrder" placeholder="Xin nhập thứ tự sắp xếp"  value="{!! old('txtOrder') !!}"/>
                 </div>
                 <div class="form-group">
-                    <label>Từ khóa tìm kiếm</label>
-                    <input class="form-control" name="txtKeyword" placeholder="Xin nhập từ khóa" />
+                    <label {!! $errors->first('txtKeyword') != null ? 'class="text-error"' : null !!}>Từ khóa tìm kiếm</label>
+                    <input class="form-control" name="txtKeyword" placeholder="Xin nhập từ khóa"  value="{!! old('txtKeyword') !!}"/>
                 </div>
                 <div class="form-group">
-                    <label>Mô tả loại</label>
-                    <textarea class="form-control" name="txtDescription" rows="3"></textarea>
+                    <label {!! $errors->first('txtDescription') != null ? 'class="text-error"' : null !!}>Mô tả loại</label>
+                    <textarea class="form-control" name="txtDescription" rows="3">{!! old('txtDescription') !!}</textarea>
                 </div>
                 <div class="form-group">
                     <label>Tình trạng</label>
@@ -67,8 +68,8 @@ Loại sản phẩm - thêm
     </div> 
 @endsection
 
-@section('javascript-fw')
-@endsection
+@push('foot-fw')
+@endpush
 
-@section('script')
-@endsection
+@push('scripts')
+@endpush

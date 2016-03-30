@@ -1,9 +1,9 @@
 $(document).ready(function(){
     //Load menu active
     $('#cssmenu > ul > li.active > a').trigger('click');
-    //Xóa inform
-    $("div.alert").delay(2000).slideUp();
 
+    //Xóa inform
+    $("div.alert").delay(2000).slideUp();    
 
     if($('.datetext').length){
             $.datepicker.regional['vi'] = {
@@ -27,6 +27,4 @@ $(document).ready(function(){
         };
         $.datepicker.setDefaults($.datepicker.regional['vi']); 
     }
-    
-    
 });

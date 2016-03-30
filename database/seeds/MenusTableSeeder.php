@@ -14,17 +14,17 @@ class MenusTableSeeder extends Seeder
         DB::table('menus')->insert([
         	/** User **/
         	array('id' => 1, 'name'=>'Người dùng', 'link'=>'#', 'parent_id'=>0,'icon'  => 'xe807'),
-            array('id' => 2, 'name'=>'Danh sách', 'link'=>'admin/user/list', 'parent_id'=>1,'icon'  => ''),
+            array('id' => 2, 'name'=>'Danh sách', 'link'=>'admin/user', 'parent_id'=>1,'icon'  => ''),
             array('id' => 3, 'name'=>'Thêm mới', 'link'=>'admin/user/add', 'parent_id'=>1,'icon'  => ''),
 
         	/** Category **/
             array('id' => 4, 'name'=>'Loại sản phẩm', 'link'=>'#', 'parent_id'=>0,'icon'  => 'xe808'),
-            array('id' => 5, 'name'=>'Danh sách', 'link'=>'admin/category/list', 'parent_id'=>4,'icon'  => ''),
+            array('id' => 5, 'name'=>'Danh sách', 'link'=>'admin/category', 'parent_id'=>4,'icon'  => ''),
             array('id' => 6, 'name'=>'Thêm mới', 'link'=>'admin/category/add', 'parent_id'=>4,'icon'  => ''),
 
             /** Product **/
             array('id' => 7, 'name'=>'Sản phẩm', 'link'=>'#', 'parent_id'=>0,'icon'  => 'xe809'),
-            array('id' => 8, 'name'=>'Danh sách', 'link'=>'admin/product/list', 'parent_id'=>7,'icon'  => ''),
+            array('id' => 8, 'name'=>'Danh sách', 'link'=>'admin/product', 'parent_id'=>7,'icon'  => ''),
             array('id' => 9, 'name'=>'Thêm mới', 'link'=>'admin/product/add', 'parent_id'=>7,'icon'  => ''),
 
             /** Quản lý **/
