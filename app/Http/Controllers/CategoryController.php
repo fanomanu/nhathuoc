@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use FRequest;
+use Illuminate\Http\Request;
 use DB;
 use App\Category;
 use App\Menu;
@@ -22,7 +23,7 @@ class CategoryController extends Controller
     }
 
     public function getData(){
-        if(request::ajax()){
+        if(FRequest::ajax()){
             //$categories = Category::select(['id', 'name', 'order','parent_id']);
             $categories = DB::table('categories as cate')->leftJoin('categories as pcate','cate.parent_id','=','pcate.id')
             ->select(['cate.id as cate_id','cate.name as cate_name','cate.order as cate_order','pcate.id as parent_id','pcate.name as parent_name']);
@@ -69,7 +70,7 @@ class CategoryController extends Controller
         $category->description  = $request->txtDescription;
         $category->clocked      = $request->rdoStatus;
         $category->save();
-        return redirect()->route('admin.category')->with(['flash-type'=>'alert-success','flash-message'=>'Đã thêm loại thành công']);
+        return redirect()->route('admin.category')->with(['flash-type' => 'inform','flash-style'=>'alert-success','flash-message'=>'Đã thêm loại thành công']);
     }
 
     public function getDelete($id){
@@ -79,9 +80,9 @@ class CategoryController extends Controller
         $products  = $cate->product()->count();
         if($child_num == 0 && $products == 0){
             $cate->delete();
-            return redirect()->route('admin.category')->with(['flash-type'=>'alert-success','flash-message'=>'Đã xóa xong loại']); 
+            return redirect()->route('admin.category')->with(['flash-type' => 'inform','flash-style' => 'alert-success','flash-message'=>'Đã xóa xong loại']); 
         }else{
-            return redirect()->route('admin.category')->with(['flash-type'=>'alert-danger','flash-message'=>'Rất tiếc ! Vì tính toàn vẹn của dữ liệu bạn không thế xóa loại này']); 
+            return redirect()->route('admin.category')->with(['flash-type' => 'inform','flash-style' => 'alert-danger','flash-message'=>'Rất tiếc ! Vì tính toàn vẹn của dữ liệu bạn không thế xóa loại này']); 
         }
     }
 
@@ -113,6 +114,6 @@ class CategoryController extends Controller
         $category->description =   $request->txtDescription;
         $category->clocked     =   $request->rdoStatus;
         $category->save();
-        return redirect()->route('admin.category')->with(['flash-type'=>'alert-success','flash-message'=>'Đã sửa thông tin loại thành công']);
+        return redirect()->route('admin.category')->with(['flash-type' => 'inform','flash-style'=>'alert-success','flash-message'=>'Đã sửa thông tin loại thành công']);
     }
 }

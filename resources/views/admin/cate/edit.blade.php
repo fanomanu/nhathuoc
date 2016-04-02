@@ -22,7 +22,7 @@ Loại sản phẩm - sửa
                 <li><a  href="{!! route('admin.category') !!}">Loại sản phẩm</a></li>
                 <li class="active">Sửa thông tin</li>
             </ol><!-- end page-header -->
-                        
+            @include('admin.blocks.inform')           
             <form action="{!! route('admin.category.getEdit',$category['id']) !!}" method="POST">
                 <div class="col-lg-7 main-form-wrapper">
                     <input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
@@ -52,10 +52,17 @@ Loại sản phẩm - sửa
                     <div class="form-group">
                         <label>Tình trạng</label>
                         <label class="radio-inline">
-                            <input name="rdoStatus" value="1" checked="" type="radio">Hiện
-                        </label>
-                        <label class="radio-inline">
-                            <input name="rdoStatus" value="2" type="radio">Không hiện
+                            @if($category['clocked'] == 0)
+                                    <input name="rdoStatus" value="0" checked="checked" type="radio">Hiện
+                                </label>
+                                <label class="radio-inline">
+                                    <input name="rdoStatus" value="1" type="radio">Không hiện
+                            @else
+                                    <input name="rdoStatus" value="0" type="radio">Hiện
+                                </label>
+                                <label class="radio-inline">
+                                    <input name="rdoStatus" value="1" checked="checked" type="radio">Không hiện
+                            @endif
                         </label>
                     </div>
                     <button type="submit" class="btn btn-primary">Lưu thông tin</button>

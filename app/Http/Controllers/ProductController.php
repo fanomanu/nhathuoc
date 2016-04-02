@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
 
-use Request;
+use App\Http\Requests;
+use FRequest;
+use Illuminate\Http\Request;
 
 use DB;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Menu;
 use App\Category;
 use App\Product;
@@ -14,7 +15,6 @@ use UnitType;
 use Input,File;
 use Datatables;
 use App\Http\Requests\ProductRequest;
-use Hash;
 
 class ProductController extends Controller
 {
@@ -49,7 +49,7 @@ class ProductController extends Controller
         $product->save();*/
         $edit_link = route('admin.product.getEdit',$product->id);
 
-    	return redirect()->route('admin.product')->with(['flash-type'=>'alert-success','flash-message'=>'Đã thêm sản phẩm thành công! Hiện tại sản phẩm chưa có hình ảnh <a href="' .$edit_link. '">nhấp vào đây</a> để thêm hình ảnh cho sản phẩm.']);	
+    	return redirect()->route('admin.product')->with(['flash-type' => 'confirm','flash-style'=>'alert-success','flash-message'=>'Đã thêm sản phẩm thành công! Hiện tại sản phẩm chưa có hình ảnh <a href="' .$edit_link. '">nhấp vào đây</a> để thêm hình ảnh cho sản phẩm.']);	
     }
 
     public function index(){
@@ -58,7 +58,7 @@ class ProductController extends Controller
     }
 
     public function getData(){
-        if(request::ajax()){
+        if(FRequest::ajax()){
             $products = DB::table('products')->leftJoin('categories','products.category_id','=','categories.id')
             ->select(['products.id as product_id','products.name as product_name','categories.id as category_id','categories.name as category_name','products.unit_type','products.price']);
             return Datatables::of($products)
@@ -91,9 +91,9 @@ class ProductController extends Controller
         $child_num = $product->Bill_detail()->count();
         if($child_num == 0){
             $product->delete();
-            return redirect()->route('admin.product')->with(['flash-type'=>'alert-success','flash-message'=>'Đã xóa xong sản phẩm']); 
+            return redirect()->route('admin.product')->with(['flash-type' => 'inform','flash-style'=>'alert-success','flash-message'=>'Đã xóa xong sản phẩm']); 
         }else{
-            return redirect()->route('admin.product')->with(['flash-type'=>'alert-danger','flash-message'=>'Rất tiếc ! Vì tính toàn vẹn của dữ liệu bạn không thế xóa sản phẩm này']); 
+            return redirect()->route('admin.product')->with(['flash-type' => 'inform','flash-style'=>'alert-danger','flash-message'=>'Rất tiếc ! Vì tính toàn vẹn của dữ liệu bạn không thế xóa sản phẩm này']); 
         }
     }
 
@@ -107,5 +107,31 @@ class ProductController extends Controller
 
     public function postEdit(){
 
+    }
+
+    public function imageUpload($id){
+        if(FRequest::ajax()){
+            $org_width = 750;
+            $imageFile = $_FILES['image_data']['tmp_name'];
+            $fileName = $_FILES['image_data']['name'];
+
+            print_r($_FILES['image_data']);
+
+            list($width, $height) = getimagesize($imageFile);
+
+            $src = imagecreatefromjpeg($imageFile);
+            $org_height = ($height/$width) * $org_width;
+
+            $tmp = imagecreatetruecolor($org_width,$org_height);
+            imagecopyresampled($tmp,$src,0,0,0,0,$org_width,$org_height,$width,$height);
+            imagejpeg($tmp,'resources/upload/images/'.$fileName,100);
+
+            imagedestroy($tmp);
+            imagedestroy($src);
+
+            echo 'Xong';
+        }else{
+            
+        }
     }
 }

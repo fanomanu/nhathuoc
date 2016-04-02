@@ -40,7 +40,8 @@ Route::group(['prefix'=>'admin'], function(){
 		Route::get('delete/{id}',['as' => 'admin.product.getDelete','uses' => 'ProductController@getDelete']);
 
 		Route::get('edit/{id}',['as'=> 'admin.product.getEdit', 'uses'=>'ProductController@getEdit']);
-		Route::post('edit/{id}',['as'=> 'admin.product.postEdit', 'uses'=>'ProductController@postEdit']);	
+		Route::post('edit/{id}',['as'=> 'admin.product.postEdit', 'uses'=>'ProductController@postEdit']);
+		Route::post('imageUpload/{id}',['as'=> 'admin.product.postImageUpload', 'uses'=>'ProductController@imageUpload']);	
 	});
 });
 

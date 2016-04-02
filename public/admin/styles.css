@@ -88,6 +88,15 @@ body{
 
 /** end main **/
 
+/*** modal ***/
+
+.modal-sub-title{
+  font-size: 16px;
+  color: #777777;
+  margin-left: 15px;
+}
+
+/*** end modal ***/
 /** form **/
 .main-form-wrapper,.sub-form-wrapper{
     padding-bottom: 100px;
@@ -101,13 +110,19 @@ body{
   color: #d9534f;
 }
 /*** profile image ***/
-.profile-image-frame{
-  width: 180px;
-  height: 200px;
+.thumbnail{
+  width: 260px;
+  height: 310px;
 }
 
 .profile-image-slide{
-
+  position: absolute;
+  bottom: 268px;
+  background-color: #222222;
+  color: #fff;
+  opacity: 0;
+  width: 250px;
+  border-radius: 0px 0px 4px 4px;
 }
 
 .profile-image-label{
@@ -120,7 +135,7 @@ body{
   margin: 0px;
 }
 
-.form-group .inputfile {
+.inputfile {
     width: 0.1px;
     height: 0.1px;
     opacity: 0;

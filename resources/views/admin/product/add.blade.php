@@ -43,7 +43,7 @@ Sản phẩm - thêm
                 </div>
                 <div class="form-group" style="height: 57.326px;">
                     <label {!! $errors->first('txtUnitType') != null ? 'class="text-error"' : null !!}>Đơn vị tính</label>
-                    <input type="text" style="display: none;" id="txtUnitType" name="txtUnitType" value="{!! old('txtUnitType','0') !!}"/>
+                    <input type="hidden" id="txtUnitType" name="txtUnitType" value="{!! old('txtUnitType') !!}"/>
                     <?php $unitType->renderUnitType(); ?>
                 </div>
                 <div class="form-group">
@@ -94,7 +94,7 @@ Sản phẩm - thêm
             // Đoạn xử lý chọn Unit Type
             //
             var btnUnitType = $('#btnUnitType button');
-            //console.log(txtUnitType);
+
             if($('#txtUnitType').val() != ''){
                 var selectValue = $('#txtUnitType').val();
                 renderUnitType(selectValue);

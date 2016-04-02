@@ -23,14 +23,8 @@ loại sản phẩm - danh sách
                 <li class="active">Loại sản phẩm</li>
                 <li class="active">Danh sách</li>
             </ol>
+            @include('admin.blocks.inform')
             @include('admin.blocks.modal')
-            <div class="col-lg-12">
-                @if(Session::has('flash-message'))
-                    <div class="alert {!! Session::get('flash-type') !!}">
-                        {!! Session::get('flash-message') !!}
-                    </div>
-                @endif
-            </div><!-- flash-message -->
             <table id="datatable" class="table table-bordered" cellspacing="0" style="width: 100%">
                    <thead>
                         <tr>

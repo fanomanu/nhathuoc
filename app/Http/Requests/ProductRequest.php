@@ -26,7 +26,7 @@ class ProductRequest extends Request
         return [
             'slCate'        => 'numeric|min:1',
             'txtName'       => 'required|unique:categories,name',
-            'txtUnitType'   => 'required',
+            'txtUnitType'   => 'required|numeric',
             'txtPrice'      => 'required|numeric',
             'txtIntro'      => 'required',
             'txtContent'    => 'required',
@@ -40,6 +40,7 @@ class ProductRequest extends Request
             'txtName.required'          => 'Xin vui lòng nhập tên',
             'txtName.unique'            => 'Tên đã tồn tại',
             'txtUnitType.required'      => 'Xin vui chọn đơn vị tính',
+            'txtUnitType.numeric'       => 'Xin vui chọn đơn vị tính',
             'txtPrice.required'         => 'Xin vui nhập giá',
             'txtPrice.numeric'          => 'Giá phải là một số',
             'txtIntro.required'         => 'Xin vui lòng nhập đoạn giới thiệu',
