@@ -8,11 +8,11 @@
     <!-- Bootstrap -->	        <link rel="stylesheet" href="{{ url('public/admin/css/bootstrap.min.css') }}" type="text/css" />
     <!-- Collapmenu style -->	<link rel="stylesheet" href="{{ url('public/admin/css/collapsemenu-styles.css') }}" type="text/css" />
     <!-- Style -->              <link rel="stylesheet" href="{{ url('public/admin/styles.css') }}" type="text/css" />
-    @stack('head-fw')
     <!-- Javascript -->
     <!-- Jquery     -->           <script src="{{ url('public/admin/js/jquery.min.js') }}" type="text/javascript"></script> 
     <!-- Bootstrap  -->           <script src="{{ url('public/admin/js/bootstrap.min.js') }}" type="text/javascript"></script> 
     <!-- Collapmenu  -->          <script src="{{ url('public/admin/js/collapsemenu_script.js') }}" type="text/javascript"></script>
+    @stack('head-fw')
 </head>
 <body>
     <div class="hero-unit">

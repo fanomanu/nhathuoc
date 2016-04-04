@@ -109,29 +109,118 @@ class ProductController extends Controller
 
     }
 
-    public function imageUpload($id){
+    public function imageUpload(Request $request,$id){
         if(FRequest::ajax()){
-            $org_width = 750;
-            $imageFile = $_FILES['image_data']['tmp_name'];
-            $fileName = $_FILES['image_data']['name'];
+            $org_width = 500;
+            $imageFile = $request->file('fImage');
+            $image_ext = $imageFile->getClientOriginalExtension();
 
-            print_r($_FILES['image_data']);
-
+            // lấy kích thước file ảnh để lấy chiều cao ảnh cần tạo
             list($width, $height) = getimagesize($imageFile);
-
-            $src = imagecreatefromjpeg($imageFile);
             $org_height = ($height/$width) * $org_width;
+
+            $src;
+            try {
+                // cover file up lên để tao source
+                switch ($image_ext) {
+                        case 'jpg':
+                            $src = imagecreatefromjpeg($imageFile);
+                            break;
+                        case 'bmp':
+                            $src = imagecreatefromwbmp($imageFile);
+                            break;
+                        case 'gif':
+                            $src = imagecreatefromgif($imageFile);
+                            break;
+                        case 'png':
+                            $src = imagecreatefrompng($imageFile);
+                            break;    
+                        default:
+                            $src = imagecreatefromjpeg($imageFile);
+                            break;
+                    }    
+            } catch (MyException $e) {
+                return json_encode(array('type' => 'error', 'msg' => 'file ảnh up lên ko hợp lệ'));
+            }
 
             $tmp = imagecreatetruecolor($org_width,$org_height);
             imagecopyresampled($tmp,$src,0,0,0,0,$org_width,$org_height,$width,$height);
-            imagejpeg($tmp,'resources/upload/images/'.$fileName,100);
-
+            imagejpeg($tmp,'resources/upload/images/tmp/'.$id.'.jpg',100);
             imagedestroy($tmp);
             imagedestroy($src);
 
-            echo 'Xong';
+            return json_encode(array('type' => 'success', 'msg' => $id.'.jpg'));
         }else{
-            
+            return redirect()->route('admin.product');
+        }
+    } // End imageUpload
+    
+    public function imageCrop(Request $request,$id){
+        if(FRequest::ajax()){
+            if($request->get('type') == 'profile'){
+                
+                try {
+
+                    $src = imagecreatefromjpeg('resources/upload/images/tmp/'.$id.'.jpg');
+                    $tmp = imagecreatetruecolor(250,300);
+                    $time = round(microtime(true) * 1000);
+                    $fileName = $id.$time.'.jpg';
+                    imagecopyresampled($tmp, $src, 0, 0, $request->get('x'), $request->get('y'), 250, 300, $request->get('w'), $request->get('h'));
+                    imagejpeg($tmp,'resources/upload/images/profile/'.$fileName,100);
+                    imagedestroy($tmp);
+                    imagedestroy($src);
+
+                    // xóa ảnh tmp
+                    $tmp_img = 'resources/upload/images/tmp/'.$id.'.jpg';
+                    if(File::exists($tmp_img)){
+                        File::delete($tmp_img);
+                    }
+
+                    $product = Product::find($id);
+                    $product_old_img = 'resources/upload/images/profile/'.$product->image;
+                    if(File::exists($product_old_img)){
+                        File::delete($product_old_img);
+                    }
+                    $product->image = $fileName;
+                    $product->save();
+
+                    return json_encode(array('type' => 'success','msg' => $fileName));
+
+                } catch (MyException $e) {
+                    return json_encode(array('type' => 'error', 'msg' => 'Có lỗi xảy ra trong quá trình cắt ảnh'));
+                }
+            }else if ($request->get('type') == 'detail'){
+                return json_encode(array('type' => 'error','msg' => 'cắt hình cho detail'));
+            }else{
+                return json_encode(array('type' => 'error','msg' => 'Có lỗi xảy ra'));
+            }
+
+
+            //return json_encode(array('msg' => 'Đã gọi dc'));
+
+        }else{
+            return redirect()->route('admin.product');
+        }
+    } // End imageCrop
+
+    public function imageDelete(Request $request,$id){
+        if(FRequest::ajax()){
+            if($request->get('type') == 'tmp'){
+                try{
+                    $tmp_img = 'resources/upload/images/tmp/'.$id.'.jpg';
+                    if(File::exists($tmp_img)){
+                        File::delete($tmp_img);
+                    }
+                }catch(MyException $e){
+                    return json_encode(array('type' => 'error', 'msg' => $e));
+                }
+            }else if($request->get('type') == 'detail'){
+                return json_encode(array('type' => 'inform','msg' => 'Xóa hình detail'));
+            }else{
+                return json_encode(array('type' => 'error','msg' => 'Có lỗi xảy ra'));
+            }
+        }else{
+            return redirect()->route('admin.product');   
         }
     }
 }

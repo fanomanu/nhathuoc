@@ -7,12 +7,14 @@
 
     
 @push('head-fw')
+    <!-- CSS Jcrop -->    <link rel="stylesheet" href="{{ url('public/admin/css/jquery.Jcrop.css') }}" type="text/css" />
     <!-- CKEditor  -->    <script src="{{ url('public/admin/js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
     <!-- CKFinder  -->    <script src="{{ url('public/admin/js/ckfinder/ckfinder.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         var baseURL = "{!! url('/') !!}";
     </script>
-    <!-- CKEditor config  -->    <script src="{{ url('public/admin/js/func_ckfinder.js') }}" type="text/javascript"></script>
+    <!-- CKEditor config  -->   <script src="{{ url('public/admin/js/func_ckfinder.js') }}" type="text/javascript"></script>
+    <!-- Jcrop -->              <script src="{{ url('public/admin/js/jquery.Jcrop.min.js') }}" type="text/javascript"></script>
 @endpush
 
 
@@ -32,42 +34,40 @@
             <li class="active">Sửa thông tin</li>
         </ol>
         @include('admin.blocks.inform')
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal fade bs-example-modal-lg" id="crop-image-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">Quản lý hình ảnh</h4>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Cắt hình ảnh</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body crop-image-wrapper">
                     <div class="row">
-                        <h3 class="modal-sub-title">Hình đại diện</h3>
-                        <div class="col-lg-12 modal-profile-image-content">
-                            <div class="profile-image-frame" id="modal-profile-image-frame" >
-                                <a id="modal-profile-image" class="thumbnail">
-                                    @if($product['image'] != null)
-                                        <img src="{!! asset('resources/upload/images/'.$product['image']); !!}" alt="...">
-                                    @else
-                                        <img src="{!! asset('public/admin/img/no-image.png'); !!}" alt="...">
-                                    @endif
-                                    </img>
-                                </a>
+                        <div class="col-lg-8" id="crop-image-before-wrapper" style="padding-right: 0px;">
+                            <div class="progress crop-image-progress">
+                                <div class="progress-bar" id="crop-image-progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="col-lg-4 crop-image-after-wrapper">
+                            <h5>Xem trước: </h5>
+                            <div id="preview">
+                                
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <form action="{!! route('admin.product.postImageUpload') !!}" type="POST" id="profile_image_form">
-                                <input type="file" name="file-3" id="fImage" class="inputfile inputfile-3" />
-                                <label for="fImage" id="profile_image_label"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg> <span>Cập nhật ảnh đại diện.</span></label>
-                            </form>
-                        </div>
+                        <ipnut type="hidden" id="crop-x" />
+                        <ipnut type="hidden" id="crop-y" />
+                        <ipnut type="hidden" id="crop-w" />
+                        <ipnut type="hidden" id="crop-h" />
                     </div>
-                    <div class="row">
-                        <h3 class="modal-sub-title">Hình chi tiết</h3>   
-                        
-                    </div>                
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button class="btn btn-default" id="crop-image-cancel">Hủy</button>
+                            <button class="btn btn-primary" id="crop-image-submit">Cắt và lưu</button>
+                        </div>
+                    </div>
                 </div>
             </div><!-- end modal-content -->
           </div><!-- end modal-dialog -->
@@ -111,18 +111,19 @@
                 <div class="form-group">
                     <label>Hình đại diện sản phẩm</label>
                     <div class="profile-image-frame" id="profile-image-frame" >
-                        <a id="profile-image" href="javascript:void(0);" class="thumbnail" data-toggle="modal" data-target=".bs-example-modal-lg">
+                        <a id="profile-image" href="javascript:void(0);" class="thumbnail">
                             @if($product['image'] != null)
-                                <img src="{!! asset('resources/upload/images/'.$product['image']); !!}" alt="...">
+                                <img id="image-profile" src="{!! asset('resources/upload/images/profile/'.$product['image']); !!}" alt="...">
                             @else
-                                <img src="{!! asset('public/admin/img/no-image.png'); !!}" alt="...">
+                                <img id="image-profile" src="{!! asset('public/admin/img/no-image.png'); !!}" alt="...">
                             @endif
                                 <div class="profile-image-slide" id="profile-image-slide">
-                                    <span class="profile-image-label"><i class="demo-icon profile-image-icon">&#xe80a;</i>Quản lý hình ảnh</span>
+                                    <span class="profile-image-label"><i class="demo-icon profile-image-icon">&#xe80a;</i>Tải hình đại diện</span>
                                 </div>
                             </img>
                         </a>
                     </div>
+                    <input type="file" name="file-3" id="fImage" class="inputfile inputfile-3" />          
                 </div>
                 <script type="text/javascript">
                     $('#profile-image').hover(function(e){
@@ -206,6 +207,11 @@
                 });
             }
 
+
+            $('#profile-image').click(function(){
+                $('#fImage').click();
+            });
+
             btnUnitType.on('click',function(e){
                 var selectValue = $(this).attr('value');
                 $('#txtUnitType').val(selectValue);
@@ -230,7 +236,7 @@
                 }
 
                 // Lập một trình biểu thức kiểm tra file là hình
-                var file_rule = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/pjpeg|image\/png)$/i;
+                var file_rule = /^(?:image\/gif|image\/jpeg|image\/pjpeg|image\/png)$/i;
 
                 // Kiểm tra file được upload
                 var file = $(this)[0].files[0];
@@ -239,7 +245,7 @@
 
                 // Kiêm tra đuôi file upload    
                 if(!file_rule.test(file_type)){
-                    alert('Xin nhập một file ảnh.');
+                    alert('Xin nhập một file .gif, .jpg hoặc .png.');
                     return;
                 }
 
@@ -252,8 +258,31 @@
                 $('#profile_image_label').hide();
 
                 var data = new FormData();
-                data.append("image_data",file);
+                data.append("fImage",file);
                 data.append('_token',$('#_token').val());
+
+                function updateCrop(c){
+
+                    showPreview(c);
+                    $('#crop-x').val(c.x);
+                    $('#crop-y').val(c.y);
+                    $('#crop-w').val(c.w);
+                    $('#crop-h').val(c.h);
+                }
+
+                function showPreview(crop){
+                    var rx  = 250/crop.w;
+                    var ry  = 300/crop.h;
+                    var o_h = $('#cropbox').height();
+
+                    //console.log(o_h);
+                    $('#preview img').css({
+                        width: Math.round(rx*500)+'px',
+                        heigh: Math.round(ry*o_h)+ 'px',
+                        marginLeft: '-'+Math.round(rx*crop.x)+'px',
+                        marginTop: '-' +Math.round(ry*crop.y)+'px'
+                    });
+                }
 
                 //console.log(data);
                 // upload hình dữ dụng jquery
@@ -264,12 +293,100 @@
                     contentType: false,
                     url: '{!! Route('admin.product.postImageUpload',$product["id"]) !!}',
                     data: data,
-                    dataType: 'html', 
-                    success: function(){
+                    dataType: 'json', 
+                    xhr: function()
+                    {
+                        var xhr = new window.XMLHttpRequest();
+                        //Upload progress
+                        xhr.upload.addEventListener("progress", function(evt){
+                          if (evt.lengthComputable) {
+                            //console.log('Đang xử lý');
+                            $('#crop-image-modal').modal();
+                            var percent = (evt.loaded / evt.total)*100;
+                            $('#crop-image-progress-bar').attr('style','width: '+percent+'%');
+                          }
+                        }, false);
+                        return xhr;
+                    },
+                    success: function(data){
+                        //console.log(data.msg);
+                        if(data.type == 'success'){
+                            $('#crop-image-before-wrapper').html('<img id="cropbox" src="{!! asset("resources/upload/images/tmp") !!}/'+ data.msg +'" />');
+                            $('#preview').html('<img src="{!! asset("resources/upload/images/tmp") !!}/'+ data.msg +'" />');  
+
+                            // Đoạn xử lý cắt hình
+                            //console.log($('#cropbox'));
+                            $('#cropbox').Jcrop({
+                                aspectRatio: 250/300,
+                                setSelect: [0,0,250,300],
+                                onSelect: updateCrop,
+                                onChange: updateCrop
+                                });
+
+                        }else{
+                            $('#crop-image-before-wrapper').html(data.msg);  
+                        }
                         
                     }
                 });
-            });
+            }); // End  fImage.change()
+
+            $('#crop-image-cancel').click(function(){
+                $('#crop-image-modal').modal('hide');
+
+                var data = new FormData();
+                data.append('_token',$('#_token').val());
+                data.append('type','tmp');
+
+                $.ajax({
+                    type: 'POST',
+                    timeout     : 1000,
+                    processData: false,
+                    contentType: false,
+                    url: '{!! Route('admin.product.postImageDelete',$product["id"]) !!}',
+                    data: data,
+                    dataType: 'json', 
+                    success: function(data){
+                        if(data.type == "success"){
+                            
+                        }else{
+                            console.log(data);
+                        }
+                    }
+                });
+            }); // End crop-image-cancel.click()
+
+                
+            // Đoạn xử lý submit hình đã cắt xong
+            //
+            $('#crop-image-submit').click(function(){
+                $('#crop-image-modal').modal('hide');
+
+                var data = new FormData();
+                data.append('_token',$('#_token').val());
+                data.append('type','profile');
+                data.append('x',$('#crop-x').val());
+                data.append('y',$('#crop-y').val());
+                data.append('w',$('#crop-w').val());
+                data.append('h',$('#crop-h').val());
+
+                $.ajax({
+                    type: 'POST',
+                    timeout     : 1000,
+                    processData: false,
+                    contentType: false,
+                    url: '{!! Route('admin.product.postImageCrop',$product["id"]) !!}',
+                    data: data,
+                    dataType: 'json', 
+                    success: function(data){
+                        if(data.type == "success"){
+                            $('#image-profile').attr({'src': '{!! asset("resources/upload/images/profile"); !!}/'+ data.msg });
+                        }else{
+                            console.log(data);
+                        }
+                    }
+                });
+            }); //end crop-image-submid.click()
         });
     </script>
 @endpush
